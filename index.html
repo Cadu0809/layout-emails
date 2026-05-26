@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de Layouts - Grupo Asserth</title>
+    <style>
+        /* Estilos do menu de paginação */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #666; /* Fundo escuro atrás do email para destacar */
+        }
+        .pagination-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            font-family: Arial, sans-serif;
+            /* Suporte para deslizar no mobile se necessário */
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        .pagination-container {
+            display: inline-block;
+            padding: 0 15px;
+        }
+        .pagination-bar button {
+            background-color: #555;
+            color: #fff;
+            border: 1px solid #777;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+        .pagination-bar button:hover {
+            background-color: #777;
+        }
+        .pagination-bar button.active {
+            background-color: #008b5e; /* Verde do Grupo Asserth */
+            border-color: #008b5e;
+        }
+        
+        /* Contêineres das páginas */
+        .page-wrapper {
+            margin-top: 74px; /* Espaço para não ficar embaixo do menu */
+            display: none; /* Esconde todas por padrão */
+            width: 100%;
+        }
+        .page-wrapper.active {
+            display: block; /* Mostra apenas a ativa */
+        }
+
+        /* ================= REGRAS EXCLUSIVAS PARA CELULAR (RESPONSIVIDADE) ================= */
+        @media (max-width: 640px) {
+            .pagination-bar {
+                text-align: left; /* Alinha à esquerda para o deslize lateral fazer sentido */
+                padding: 10px 0;
+            }
+            .pagination-container {
+                padding: 0 10px;
+            }
+            .pagination-bar button {
+                padding: 8px 14px;
+                font-size: 13px;
+                margin: 0 3px;
+            }
+            .page-wrapper {
+                margin-top: 56px; /* Ajusta o espaço do topo conforme o menu diminui */
+            }
+            
+            /* Força apenas as tabelas estruturais de 600px a se adaptarem à tela do celular */
+            .page-wrapper table[width="600"] {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Força as imagens grandes (como os banners) a se adaptarem sem distorcer */
+            .page-wrapper img[width="600"] {
+                width: 100% !important;
+                height: auto !important;
+            }
+            
+            /* Garante proteção geral para qualquer imagem do corpo do e-mail */
+            .page-wrapper img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pagination-bar">
+        <div class="pagination-container">
+            <button onclick="mudarPagina(1)" id="btn-1" class="active">Versão 1</button>
+            <button onclick="mudarPagina(2)" id="btn-2">Versão 2</button>
+            <button onclick="mudarPagina(3)" id="btn-3">Versão 3</button>
+            <button onclick="mudarPagina(4)" id="btn-4">Versão 4</button>
+            <button onclick="mudarPagina(5)" id="btn-5">Versão 5</button>
+            <button onclick="mudarPagina(6)" id="btn-6">Versão 6</button>
+        </div>
+    </div>
+
+    <div id="pagina-1" class="page-wrapper active">
+        <div style="margin: 0; padding: 0; background-color: #f4f4f4; width: 100% !important;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4; padding: 20px 0;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border: 1px solid #dcdcdc; border-collapse: collapse;">
+                            <tr>
+                                <td align="center" style="padding: 15px 30px 0; font-family: Arial, sans-serif; font-size: 11px !important; line-height: 14px !important; color: #777 !important;">
+                                    Se você não estiver conseguindo visualizar esse e-mail, <a href="#" style="color: #008b5e !important; text-decoration: underline !important;">acesse a versão online</a>.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 30px; border-bottom: 2px solid #008b5e;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Grupo Asserth" width="160" style="display: block; border: 0;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="https://images.thomsonreuters.com/EloquaImages/clients/TRlegalUS/%7Bb05e5f23-e001-49ca-8093-3ee067ff1739%7D_header_base_5.png" alt="Banner" width="600" style="display: block; border: 0;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px 30px; font-family: Arial, sans-serif; color: #333 !important;">
+                                    <h2 style="font-size: 14px !important; color: #008b5e !important; text-transform: uppercase; margin: 0 0 10px 0; font-weight: bold;">Domínio Busca Convenções</h2>
+                                    <h1 style="font-size: 26px !important; color: #222 !important; margin: 0 0 25px 0; line-height: 1.2 !important; font-weight: bold;">A convenção coletiva foi homologada. Você foi o último a saber?</h1>
+                                    
+                                    <p style="font-size: 15px !important; line-height: 22px !important; margin: 0 0 15px 0; color: #333 !important;">Olá, contador!</p>
+                                    <p style="font-size: 15px !important; line-height: 22px !important; margin: 0 0 15px 0; color: #333 !important;">Acompanhar convenções coletivas sempre foi um trabalho reativo. Até agora. Temos uma novidade que vai mudar essa realidade.</p>
+                                    
+                                    <table border="0" cellpadding="20" cellspacing="0" width="100%" style="background-color: #f5f6f7 !important; border-left: 5px solid #d49323 !important; margin: 30px 0; border-collapse: collapse;">
+                                        <tr>
+                                            <td style="font-size: 15px !important; line-height: 22px !important; color: #333 !important;">
+                                                Apresentamos o <strong>Domínio Busca Convenções</strong>, a única solução que automatiza o ciclo completo:<br><br>
+                                                Do monitoramento de mais de 17 mil sindicatos à atualização da sua folha com um clique.
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <p style="font-size: 15px !important; line-height: 22px !important; margin: 0 0 15px 0; color: #333 !important;">Com o Domínio Busca Convenções, você garante segurança jurídica absoluta e posiciona seu escritório na vanguarda do mercado.</p>
+                                    <p style="font-size: 15px !important; line-height: 22px !important; margin: 0 0 15px 0; color: #333 !important;">Torne-se cliente Domínio e seja o consultor proativo que seu cliente precisa, com a inteligência que antecipa as mudanças.</p>
+                                    <p style="font-size: 15px !important; line-height: 22px !important; margin: 0 0 15px 0; color: #333 !important;">Não é uma busca melhorada, é o fim da busca com automação de todo processo.</p>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0" align="center" style="margin-top: 30px;">
+                                        <tr>
+                                            <td align="center" bgcolor="#008b5e" style="border-radius: 25px; padding: 15px 40px;">
+                                                <a href="#" style="color: #ffffff !important; text-decoration: none !important; font-weight: bold; font-size: 16px !important; font-family: Arial, sans-serif;">Conhecer agora</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f9f9f9 !important; padding: 30px; border-top: 2px solid #d92936 !important; font-family: Arial, sans-serif;">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td style="padding-bottom: 20px;">
+                                                <p style="margin: 0 0 10px 0; font-size: 12px !important; color: #555 !important;">Siga nossas redes sociais</p>
+                                                <table border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td width="40"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/3536/3536505.png" alt="LinkedIn" width="32" height="32" style="display: block;"></a></td>
+                                                        <td width="40"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/3670/3670274.png" alt="Instagram" width="32" height="32" style="display: block;"></a></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td align="right" valign="top">
+                                                <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Logo" width="100" style="display: block;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="font-size: 11px !important; color: #555 !important; line-height: 16px !important; border-top: 1px solid #ccc; padding-top: 20px;">
+                                                <p style="margin: 0;"><strong>GRUPO ASSERTH</strong></p>
+                                                <p style="margin: 0;">Matriz: Rua James Joule, 92 - Cidade Monções, São Paulo - SP - 10° Andar</p>
+                                                <p style="margin: 0;">Canais de Atendimento: contato@grupoasserth.com.br | WhatsApp: (11) 98697-5520</p>
+                                                <p style="margin: 20px 0 0 0;">&copy; 2026 Grupo Asserth. Todos os direitos reservados. | <a href="#" style="color: #555 !important; text-decoration: underline;">Cancelar sua inscrição</a></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="pagina-2" class="page-wrapper">
+        <div style="margin: 0; padding: 0; background-color: #f0f2f5; font-family: 'Roboto', Arial, sans-serif;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f0f2f5; padding: 30px 0;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <tr>
+                                <td style="padding: 40px; text-align: center; border-bottom: 5px solid #008B5E;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Grupo Asserth" width="220">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f9f9f9; text-align: center;">
+                                    <img src="https://images.thomsonreuters.com/EloquaImages/clients/TRlegalUS/%7Bb05e5f23-e001-49ca-8093-3ee067ff1739%7D_header_base_5.png" alt="Banner" width="600" style="display: block;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 30px;">
+                                    <table border="0" cellpadding="30" cellspacing="0" width="100%" style="background-color: #008B5E; border-radius: 8px;">
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <h2 style="color: #ffffff; font-size: 16px; text-transform: uppercase; margin: 0 0 10px 0; letter-spacing: 1px;">Domínio Busca Convenções</h2>
+                                                <h1 style="color: #ffffff; font-size: 26px; margin: 0; line-height: 1.3;">A convenção coletiva foi homologada. <span style="color: #E89B3C;">Você foi o último a saber?</span></h1>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 40px 20px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0;">Olá, contador!</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 15px 0 0 0;">Acompanhar convenções coletivas sempre foi um trabalho reativo. Até agora. Temos uma novidade que vai mudar essa realidade para o seu negócio.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 40px;">
+                                    <table border="0" cellpadding="25" cellspacing="0" width="100%" style="background-color: #f9f9f9; border-left: 4px solid #CE2E3C; border-radius: 4px;">
+                                        <tr>
+                                            <td style="color: #333; font-size: 17px; line-height: 1.5;">
+                                                Apresentamos o <strong>Domínio Busca Convenções</strong>, a única solução que automatiza o ciclo completo: do monitoramento de mais de 17 mil sindicatos à atualização da sua folha com um clique.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 20px 40px 40px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Com o <strong>Domínio Busca Convenções</strong>, você garante segurança jurídica absoluta e posiciona seu escritório na vanguarda do mercado.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Torne-se cliente Domínio e seja o consultor proativo que seu cliente precisa.</p>
+                                    <p style="font-size: 17px; color: #CE2E3C; font-weight: bold; line-height: 1.6; margin: 0 0 30px 0;">Não é uma busca melhorada, é o fim da busca com automação de todo processo.</p>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0" align="center">
+                                        <tr>
+                                            <td align="center" bgcolor="#CE2E3C" style="border-radius: 6px; padding: 18px 40px;">
+                                                <a href="#" style="color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px; font-family: Arial, sans-serif;">CONHECER AGORA</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #333; padding: 40px; color: #fff; text-align: center;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Logo Grupo Asserth" width="150" style="margin-bottom: 20px;">
+                                    <p style="font-size: 14px; margin: 0 0 15px 0; color: #E89B3C;">Siga nossas redes sociais:</p>
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174857.png" alt="LinkedIn" width="30"></a></td>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174855.png" alt="Instagram" width="30"></a></td>
+                                        </tr>
+                                    </table>
+                                    <p style="font-size: 12px; color: #bbb; margin-top: 25px;">&copy; 2026 Grupo Asserth. Todos os direitos reservados.</p>
+                                    <p style="font-size: 12px; color: #bbb; margin: 5px 0;">Rua James Joule, 92 - Cidade Monções, São Paulo - SP</p>
+                                    <a href="#" style="color: #E89B3C; font-size: 12px; text-decoration: underline;">Cancelar inscrição</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="pagina-3" class="page-wrapper">
+        <div style="margin: 0; padding: 0; background-color: #f0f2f5; font-family: 'Roboto', Arial, sans-serif;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f0f2f5; padding: 30px 0;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <tr>
+                                <td style="padding: 40px; text-align: center; border-bottom: 5px solid #008B5E;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Grupo Asserth" width="220">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f9f9f9; text-align: center;">
+                                    <img src="https://images.thomsonreuters.com/EloquaImages/clients/TRlegalUS/%7Bb05e5f23-e001-49ca-8093-3ee067ff1739%7D_header_base_5.png" alt="Banner" width="600" style="display: block;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px; background-color: #008B5E;">
+                                    <h2 style="color: #ffffff; font-size: 16px; text-transform: uppercase; margin: 0 0 10px 0;">Domínio Busca Convenções</h2>
+                                    <h1 style="color: #ffffff; font-size: 28px; margin: 0; line-height: 1.2;">A convenção coletiva foi homologada. <span style="color: #E89B3C;">Você foi o último a saber?</span></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px 40px 20px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0;">Olá, contador!</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 15px 0 0 0;">Acompanhar convenções coletivas sempre foi um trabalho reativo. Até agora. Temos uma novidade que vai mudar essa realidade para o seu negócio.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 40px;">
+                                    <table border="0" cellpadding="25" cellspacing="0" width="100%" style="background-color: #008B5E; border-radius: 8px;">
+                                        <tr>
+                                            <td style="color: #ffffff; font-size: 18px; line-height: 1.5; text-align: center;">
+                                                Apresentamos o <strong>Domínio Busca Convenções</strong>, a única solução que automatiza o ciclo completo: do monitoramento de mais de 17 mil sindicatos à atualização da sua folha com um clique.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 20px 40px 40px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Com o <strong>Domínio Busca Convenções</strong>, você garante segurança jurídica absoluta e posiciona seu escritório na vanguarda do mercado.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Torne-se cliente Domínio e seja o consultor proativo que seu cliente precisa, com a inteligência que antecipa as mudanças.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 30px 0;">Não é uma busca melhorada, é o fim da busca com automação de todo processo.</p>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0" align="center">
+                                        <tr>
+                                            <td align="center" bgcolor="#E89B3C" style="border-radius: 6px; padding: 18px 40px;">
+                                                <a href="#" style="color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px; font-family: Arial, sans-serif;">Conhecer agora</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #333; padding: 40px; color: #fff; text-align: center;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Logo Grupo Asserth" width="150" style="margin-bottom: 20px;">
+                                    <p style="font-size: 14px; margin: 0 0 15px 0;">Siga nossas redes sociais:</p>
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174857.png" alt="LinkedIn" width="30"></a></td>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174855.png" alt="Instagram" width="30"></a></td>
+                                        </tr>
+                                    </table>
+                                    <p style="font-size: 12px; color: #bbb; margin-top: 25px;">&copy; 2026 Grupo Asserth. Todos os direitos reservados.</p>
+                                    <p style="font-size: 12px; color: #bbb; margin: 5px 0;">Rua James Joule, 92 - Cidade Monções, São Paulo - SP</p>
+                                    <a href="#" style="color: #E89B3C; font-size: 12px; text-decoration: underline;">Cancelar inscrição</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="pagina-4" class="page-wrapper">
+        <div style="margin: 0; padding: 0; background-color: #f0f2f5; font-family: 'Roboto', Arial, sans-serif;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f0f2f5; padding: 30px 0;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <tr>
+                                <td style="padding: 40px; text-align: center; border-bottom: 5px solid #008B5E;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Grupo Asserth" width="220">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f9f9f9; text-align: center;">
+                                    <img src="https://images.thomsonreuters.com/EloquaImages/clients/TRlegalUS/%7Bb05e5f23-e001-49ca-8093-3ee067ff1739%7D_header_base_5.png" alt="Banner" width="600" style="display: block;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px 40px 20px;">
+                                    <h2 style="color: #E89B3C; font-size: 16px; text-transform: uppercase; margin: 0 0 10px 0;">Domínio Busca Convenções</h2>
+                                    <h1 style="color: #008B5E; font-size: 28px; margin: 0 0 20px 0; line-height: 1.2;">A convenção coletiva foi homologada. Você foi o último a saber?</h1>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0;">Olá, contador!</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 15px 0 0 0;">Acompanhar convenções coletivas sempre foi um trabalho reativo. Até agora. Temos uma novidade que vai mudar essa realidade para o seu negócio.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 40px;">
+                                    <table border="0" cellpadding="25" cellspacing="0" width="100%" style="background-color: #008B5E; border-radius: 8px;">
+                                        <tr>
+                                            <td style="color: #ffffff; font-size: 18px; line-height: 1.5; text-align: center;">
+                                                Apresentamos o <strong>Domínio Busca Convenções</strong>, a única solução que automatiza o ciclo completo: do monitoramento de mais de 17 mil sindicatos à atualização da sua folha com um clique.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 20px 40px 40px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Com o <strong style="color: #E89B3C;">Domínio Busca Convenções</strong>, você garante segurança jurídica absoluta e posiciona seu escritório na vanguarda do mercado.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Torne-se cliente Domínio e seja o consultor proativo que seu cliente precisa, com a inteligência que antecipa as mudanças.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 30px 0;">Não é uma busca melhorada, é o fim da busca com automação de todo processo.</p>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0" align="center">
+                                        <tr>
+                                            <td align="center" bgcolor="#E89B3C" style="border-radius: 6px; padding: 18px 40px;">
+                                                <a href="#" style="color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px; font-family: Arial, sans-serif;">Conhecer agora</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #333; padding: 40px; color: #fff; text-align: center;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Logo Grupo Asserth" width="150" style="margin-bottom: 20px;">
+                                    <p style="font-size: 14px; margin: 0 0 15px 0;">Siga nossas redes sociais:</p>
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174857.png" alt="LinkedIn" width="30"></a></td>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174855.png" alt="Instagram" width="30"></a></td>
+                                        </tr>
+                                    </table>
+                                    <p style="font-size: 12px; color: #bbb; margin-top: 25px;">&copy; 2026 Grupo Asserth. Todos os direitos reservados.</p>
+                                    <p style="font-size: 12px; color: #bbb; margin: 5px 0;">Rua James Joule, 92 - Cidade Monções, São Paulo - SP</p>
+                                    <a href="#" style="color: #E89B3C; font-size: 12px; text-decoration: underline;">Cancelar inscrição</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="pagina-5" class="page-wrapper">
+        <div style="margin: 0; padding: 0; background-color: #f0f2f5; font-family: 'Roboto', Arial, sans-serif;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f0f2f5; padding: 30px 0;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <tr>
+                                <td style="padding: 40px; text-align: center; border-bottom: 5px solid #008B5E;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Grupo Asserth" width="220">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f9f9f9; text-align: center;">
+                                    <img src="https://images.thomsonreuters.com/EloquaImages/clients/TRlegalUS/%7Bb05e5f23-e001-49ca-8093-3ee067ff1739%7D_header_base_5.png" alt="Banner" width="600" style="display: block;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px 40px 20px;">
+                                    <h2 style="color: #CE2E3C; font-size: 16px; text-transform: uppercase; margin: 0 0 10px 0;">Domínio Busca Convenções</h2>
+                                    <h1 style="color: #333; font-size: 28px; margin: 0; line-height: 1.2;">A convenção coletiva foi homologada. <span style="color: #E89B3C;">Você foi o último a saber?</span></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 40px 20px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0;">Olá, contador!</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 15px 0 0 0;">Acompanhar convenções coletivas sempre foi um trabalho reativo. Até agora. Temos uma novidade que vai mudar essa realidade para o seu negócio.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 40px;">
+                                    <table border="0" cellpadding="25" cellspacing="0" width="100%" style="background-color: #f9f9f9; border-left: 4px solid #CE2E3C; border-radius: 4px;">
+                                        <tr>
+                                            <td style="color: #333; font-size: 17px; line-height: 1.5;">
+                                                Apresentamos o <strong style="color: #CE2E3C;">Domínio Busca Convenções</strong>, a única solução que automatiza o ciclo completo: do monitoramento de mais de 17 mil sindicatos à atualização da sua folha com um clique.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 20px 40px 40px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Com o <strong style="color: #CE2E3C;">Domínio Busca Convenções</strong>, você garante segurança jurídica absoluta e posiciona seu escritório na vanguarda do mercado.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Torne-se cliente Domínio e seja o consultor proativo que seu cliente precisa, com a inteligência que antecipa as mudanças.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 30px 0;">Não é uma busca melhorada, é o fim da busca com automação de todo processo.</p>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0" align="center">
+                                        <tr>
+                                            <td align="center" bgcolor="#CE2E3C" style="border-radius: 6px; padding: 18px 40px;">
+                                                <a href="#" style="color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px; font-family: Arial, sans-serif;">Conhecer agora</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #333; padding: 40px; color: #fff; text-align: center;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Logo Grupo Asserth" width="150" style="margin-bottom: 20px;">
+                                    <p style="font-size: 14px; margin: 0 0 15px 0; color: #E89B3C;">Siga nossas redes sociais:</p>
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174857.png" alt="LinkedIn" width="30"></a></td>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174855.png" alt="Instagram" width="30"></a></td>
+                                        </tr>
+                                    </table>
+                                    <p style="font-size: 12px; color: #bbb; margin-top: 25px;">&copy; 2026 Grupo Asserth. Todos os direitos reservados.</p>
+                                    <p style="font-size: 12px; color: #bbb; margin: 5px 0;">Rua James Joule, 92 - Cidade Monções, São Paulo - SP</p>
+                                    <a href="#" style="color: #E89B3C; font-size: 12px; text-decoration: underline;">Cancelar inscrição</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="pagina-6" class="page-wrapper">
+        <div style="margin: 0; padding: 0; background-color: #f0f2f5; font-family: 'Roboto', Arial, sans-serif;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f0f2f5; padding: 30px 0;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <tr>
+                                <td style="padding: 40px; text-align: center; border-bottom: 5px solid #008B5E;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Grupo Asserth" width="220">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f9f9f9; text-align: center;">
+                                    <img src="https://images.thomsonreuters.com/EloquaImages/clients/TRlegalUS/%7Bb05e5f23-e001-49ca-8093-3ee067ff1739%7D_header_base_5.png" alt="Banner" width="600" style="display: block;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px; background-color: #008B5E;">
+                                    <h2 style="color: #ffffff; font-size: 16px; text-transform: uppercase; margin: 0 0 10px 0;">Domínio Busca Convenções</h2>
+                                    <h1 style="color: #ffffff; font-size: 28px; margin: 0; line-height: 1.2;">A convenção coletiva foi homologada. <span style="color: #E89B3C;">Você foi o último a saber?</span></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px 40px 20px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0;">Olá, contador!</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 15px 0 0 0;">Acompanhar convenções coletivas sempre foi um trabalho reativo. Até agora. Temos uma novidade que vai mudar essa realidade para o seu negócio.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 40px;">
+                                    <table border="0" cellpadding="25" cellspacing="0" width="100%" style="background-color: #f9f9f9; border-left: 4px solid #CE2E3C; border-radius: 4px;">
+                                        <tr>
+                                            <td style="color: #333; font-size: 17px; line-height: 1.5;">
+                                                Apresentamos o <strong style="color: #CE2E3C;">Domínio Busca Convenções</strong>, a única solution que automatiza o ciclo completo: do monitoramento de mais de 17 mil sindicatos à atualização da sua folha com um clique.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 20px 40px 40px;">
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Com o <strong style="color: #E89B3C;">Domínio Busca Convenções</strong>, você garante segurança jurídica absoluta e posiciona seu escritório na vanguarda do mercado.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 15px 0;">Torne-se cliente Domínio e seja o consultor proativo que seu cliente precisa, com a inteligência que antecipa as mudanças.</p>
+                                    <p style="font-size: 17px; color: #333; line-height: 1.6; margin: 0 0 30px 0;">Não é uma busca melhorada, é o fim da busca com automação de todo processo.</p>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0" align="center">
+                                        <tr>
+                                            <td align="center" bgcolor="#CE2E3C" style="border-radius: 6px; padding: 18px 40px;">
+                                                <a href="#" style="color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px; font-family: Arial, sans-serif;">Conhecer agora</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #333; padding: 40px; color: #fff; text-align: center;">
+                                    <img src="https://www.grupoasserth.com.br/wp-content/uploads/2021/10/asserth.png" alt="Logo Grupo Asserth" width="150" style="margin-bottom: 20px;">
+                                    <p style="font-size: 14px; margin: 0 0 15px 0; color: #E89B3C;">Siga nossas redes sociais:</p>
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174857.png" alt="LinkedIn" width="30"></a></td>
+                                            <td style="padding: 0 10px;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/32/174/174855.png" alt="Instagram" width="30"></a></td>
+                                        </tr>
+                                    </table>
+                                    <p style="font-size: 12px; color: #bbb; margin-top: 25px;">&copy; 2026 Grupo Asserth. Todos os direitos reservados.</p>
+                                    <p style="font-size: 12px; color: #bbb; margin: 5px 0;">Rua James Joule, 92 - Cidade Monções, São Paulo - SP</p>
+                                    <a href="#" style="color: #E89B3C; font-size: 12px; text-decoration: underline;">Cancelar inscrição</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function mudarPagina(numeroDaPagina) {
+            // Esconde todas as páginas
+            var paginas = document.querySelectorAll('.page-wrapper');
+            paginas.forEach(function(pagina) {
+                pagina.classList.remove('active');
+            });
+
+            // Remove a classe "active" de todos os botões
+            var botoes = document.querySelectorAll('.pagination-bar button');
+            botoes.forEach(function(botao) {
+                botao.classList.remove('active');
+            });
+
+            // Mostra a página selecionada e destaca o botão
+            document.getElementById('pagina-' + numeroDaPagina).classList.add('active');
+            document.getElementById('btn-' + numeroDaPagina).classList.add('active');
+            
+            // Rola pro topo suavemente quando muda a página
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
